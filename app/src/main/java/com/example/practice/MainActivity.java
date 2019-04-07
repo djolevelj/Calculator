@@ -13,22 +13,41 @@ public class MainActivity extends AppCompatActivity {
     private int result = 0, firstNumber = 0, secondNumber = 0;
     private int tempNum = 0;
 
-
     private TextView tvResult;
     private String displayedText = "";
     private String calcText = "";
 
-    private boolean plusClickedOnce = false;
-    private boolean minusClickedOnce = false;
-    private boolean multiplyClickedOnce = false;
-    private boolean divideClickedOnce = false;
+    private String selectedOperation = "";
 
+    private boolean operationClickedOnce = false;
+
+    private void setNumber(String num) {
+        displayedText += num;
+        calcText += num;
+        firstNumber = Integer.parseInt(calcText);
+
+        tvResult.setText(displayedText);
+    }
+
+    private void setOperation(String operation) {
+        if (!operationClickedOnce) {
+            tempNum = firstNumber;
+
+            firstNumber = 0;
+            calcText = "";
+            displayedText = tempNum + operation;
+
+            selectedOperation = operation;
+
+            tvResult.setText(displayedText);
+        }
+        operationClickedOnce = true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        displayedText = "";
         Button btnPlus = findViewById(R.id.btn_plus);
         Button btnOne = findViewById(R.id.btn_one);
         Button btnTwo = findViewById(R.id.btn_two);
@@ -45,166 +64,105 @@ public class MainActivity extends AppCompatActivity {
         Button btnMinus = findViewById(R.id.btn_minus);
         Button btnDivide = findViewById(R.id.btn_divide);
         Button btnMultiply = findViewById(R.id.btn_multiply);
+        Button btnClear = findViewById(R.id.btn_clear);
 
         btnOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayedText += "1";
-                calcText += "1";
-                firstNumber = Integer.parseInt(calcText);
-
-                tvResult.setText(displayedText);
-
+                setNumber("1");
             }
         });
         btnTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayedText += "2";
-                calcText += "2";
-                firstNumber = Integer.parseInt(calcText);
-
-                tvResult.setText(displayedText);
+                setNumber("2");
             }
         });
         btnThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayedText += "3";
-                calcText += "3";
-                firstNumber = Integer.parseInt(calcText);
-
-                tvResult.setText(displayedText);
+                setNumber("3");
             }
         });
         btnFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayedText += "4";
-                calcText += "4";
-                firstNumber = Integer.parseInt(calcText);
-
-                tvResult.setText(displayedText);
+                setNumber("4");
             }
         });
         btnFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayedText += "5";
-                calcText += "5";
-                firstNumber = Integer.parseInt(calcText);
-
-                tvResult.setText(displayedText);
+                setNumber("5");
             }
         });
         btnSix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayedText += "6";
-                calcText += "6";
-                firstNumber = Integer.parseInt(calcText);
-
-                tvResult.setText(displayedText);
+                setNumber("6");
             }
         });
         btnSeven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayedText += "7";
-                calcText += "7";
-                firstNumber = Integer.parseInt(calcText);
-
-                tvResult.setText(displayedText);
+                setNumber("7");
             }
         });
         btnEight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayedText += "8";
-                calcText += "8";
-                firstNumber = Integer.parseInt(calcText);
-
-                tvResult.setText(displayedText);
+                setNumber("8");
             }
         });
         btnNine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayedText += "9";
-                calcText += "9";
-                firstNumber = Integer.parseInt(calcText);
-
-                tvResult.setText(displayedText);
+                setNumber("9");
             }
         });
         btnZero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayedText += "0";
-                calcText += "0";
-                firstNumber = Integer.parseInt(calcText);
-
-                tvResult.setText(displayedText);
+                setNumber("0");
             }
         });
 
         btnDivide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!divideClickedOnce){
-                    tempNum = firstNumber;
-                    firstNumber = 0;
-                    calcText = "";
-                    displayedText = tempNum + "/";
-
-                    tvResult.setText(displayedText);
-                }
+                setOperation("/");
             }
         });
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!plusClickedOnce) {
-                    tempNum = firstNumber;
-                    firstNumber = 0;
-                    calcText = "";
-                    displayedText = tempNum + "+";
-
-                    tvResult.setText(displayedText);
-                }
-
-                plusClickedOnce = true;
+              setOperation("+");
             }
         });
         btnMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!minusClickedOnce) {
-                    tempNum = firstNumber;
-                    firstNumber = 0;
-                    calcText = "";
-                    displayedText = tempNum + "-";
-
-                    tvResult.setText(displayedText);
-                }
-                minusClickedOnce = true;
+                setOperation("-");
             }
         });
 
         btnMultiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!multiplyClickedOnce) {
-                    tempNum = firstNumber;
-                    firstNumber = 0;
-                    calcText = "";
-                    displayedText = tempNum + "*";
-
-                    tvResult.setText(displayedText);
-                }
-                multiplyClickedOnce = true;
+                setOperation("*");
             }
-
+        });
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayedText = "";
+                calcText = "";
+                firstNumber = 0;
+                tempNum = 0;
+                tvResult.setText(displayedText);
+                operationClickedOnce = false;
+                selectedOperation = "";
+            }
         });
         btnEquals.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,13 +170,24 @@ public class MainActivity extends AppCompatActivity {
                 if (firstNumber == 0 || tempNum == 0)
                     Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
                 else {
-                    result = firstNumber + tempNum;
+                    switch(selectedOperation){
+                        case "+":
+                            result = firstNumber + tempNum;
+                            break;
+                        case "-":
+                            result =  tempNum - firstNumber;
+                            break;
+                        case "/":
+                            result = tempNum / firstNumber;
+                            break;
+                        case "*":
+                            result = firstNumber * tempNum;
+                            break;
+                    }
                     tvResult.setText("result = " + result);
                 }
             }
         });
-
-
     }
 }
 
